@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # zshのインストール
-if ! command -v zsh &> /dev/null
-then
+if ! command -v zsh &> /dev/null; then
     echo "zsh could not be found, installing zsh..."
     if [ "$(uname)" == "Darwin" ]; then
         brew install zsh
@@ -14,8 +13,7 @@ then
 fi
 
 # gitのインストール
-if ! command -v git &> /dev/null
-then
+if ! command -v git &> /dev/null; then
     echo "git could not be found, installing git..."
     if [ "$(uname)" == "Darwin" ]; then
         brew install git
@@ -33,16 +31,18 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 # powerlevel10kのインストール
-echo "Installing Powerlevel10k..."
-if [! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+    echo "Installing Powerlevel10k..."
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
+# zsh-autosuggestionsのインストール
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
     echo "Installing zsh-autosuggestions..."
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
+# zsh-syntax-highlightingのインストール
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
     echo "Installing zsh-syntax-highlighting..."
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -53,11 +53,12 @@ if [ ! -d "$HOME/.zsh-minimum" ]; then
     git clone https://github.com/gae-22/zsh-minimum.git $HOME/.zsh-minimum
 fi
 
-if [-d "$HOME/.vimrc" ]; then
+# バックアップの作成
+if [ -f "$HOME/.vimrc" ]; then
     mv $HOME/.vimrc $HOME/.vimrc.bak
 fi
 
-if [-d "$HOME/.zshrc" ]; then
+if [ -f "$HOME/.zshrc" ]; then
     mv $HOME/.zshrc $HOME/.zshrc.bak
 fi
 
@@ -65,4 +66,5 @@ fi
 ln -sf $HOME/.zsh-minimum/zshrc.zsh $HOME/.zshrc
 ln -sf $HOME/.zsh-minimum/vimrc.vim $HOME/.vimrc
 
+# 設定を適用
 source $HOME/.zshrc
