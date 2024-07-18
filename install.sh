@@ -53,6 +53,14 @@ if [ ! -d "$HOME/.zsh-minimum" ]; then
     git clone https://github.com/gae-22/zsh-minimum.git $HOME/.zsh-minimum
 fi
 
+if [-d "$HOME/.vimrc" ]; then
+    mv $HOME/.vimrc $HOME/.vimrc.bak
+fi
+
+if [-d "$HOME/.zshrc" ]; then
+    mv $HOME/.zshrc $HOME/.zshrc.bak
+fi
+
 # シンボリックリンクを作成
 ln -sf $HOME/.zsh-minimum/zshrc.zsh $HOME/.zshrc
 ln -sf $HOME/.zsh-minimum/vimrc.vim $HOME/.vimrc
