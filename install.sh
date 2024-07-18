@@ -13,6 +13,19 @@ then
     fi
 fi
 
+# gitのインストール
+if ! command -v git &> /dev/null
+then
+    echo "git could not be found, installing git..."
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install git
+    elif [ -f /etc/debian_version ]; then
+        sudo apt-get install git -y
+    elif [ -f /etc/redhat-release ]; then
+        sudo yum install git -y
+    fi
+fi
+
 # oh-my-zshのインストール
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     echo "Installing Oh My Zsh..."
